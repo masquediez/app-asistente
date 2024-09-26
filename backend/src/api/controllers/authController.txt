@@ -1,0 +1,112 @@
+require("dotenv").config();
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
+const User = require("../models/User");
+const axios = require("axios"); // Para enviar la solicitud a n8n
+
+// Registro de usuario
+exports.register = async (req, res, next) => {
+  try {
+    const { username, email, password } = req.body;
+
+    // Verifica si el usuario ya existe
+    const existingUser = await User.findOne({ where: { email } });
+    if (existingUser) {
+      return res.status(400).json({ message: "El usuario ya existe" });
+    }
+
+    // Crea y guarda el nuevo usuario
+    const newUser = await User.create({ username, email, password });
+
+    // Genera un token JWT
+    const token = jwt.sign({ id: newUser.id }, process.env.JWT_SECRET, {
+      expiresIn: "1h",
+    });
+
+    res.status(201).json({
+      message: "Usuario registrado exitosamente",
+      token,
+      user: {
+        id: newUser.id,
+        username: newUser.username,
+        email: newUser.email,
+      },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// Inicio de sesión de usuario
+exports.login = async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+
+    // Buscar el usuario por email
+    const user = await User.findOne({ where: { email } });
+    if (!user) {
+      return res.status(401).json({ message: "Credenciales inválidas" });
+    }
+
+    // Validar la contraseña
+    const validPassword = await bcrypt.compare(password, user.password);
+    if (!validPassword) {
+      return res.status(401).json({ message: "Credenciales inválidas" });
+    }
+
+    // Generar un token para el usuario
+    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
+      expiresIn: "1h",
+    });
+
+    // Guardar el token en una cookie
+    res.cookie("token", token, {
+      httpOnly: true, // Solo accesible por el servidor
+      secure: process.env.NODE_ENV === "production", // Solo enviar sobre HTTPS en producción
+    });
+
+    console.log("Token generado y enviado:", token);
+
+    // Enviar el token a n8n
+    const authHeader = `Basic ${Buffer.from(
+      `${process.env.N8N_BASIC_AUTH_USER}:${process.env.N8N_BASIC_AUTH_PASSWORD}`
+    ).toString("base64")}`;
+
+    console.log("Authorization Header:", authHeader); // Para verificar la salida
+    console.log("N8N_BASIC_AUTH_USER:", process.env.N8N_BASIC_AUTH_USER);
+    console.log(
+      "N8N_BASIC_AUTH_PASSWORD:",
+      process.env.N8N_BASIC_AUTH_PASSWORD
+    );
+
+    try {
+      const response = await axios.post(
+        "https://n8nencasa.duckdns.org/webhook-test/02db3747-0ef8-4b9a-bc0c-face5bb1f3ea",
+        { token },
+        {
+          headers: {
+            Authorization: `Basic ${Buffer.from(
+              `${process.env.N8N_BASIC_AUTH_USER}:${process.env.N8N_BASIC_AUTH_PASSWORD}`
+            ).toString("base64")}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      console.log("Token enviado a n8n:", response.data);
+    } catch (error) {
+      console.error(
+        "Error al enviar el token a n8n:",
+        error.response?.data || error.message
+      );
+    }
+
+    res.json({
+      token,
+      user: { id: user.id, username: user.username, email: user.email },
+    });
+  } catch (error) {
+    console.error("Error en el inicio de sesión:", error);
+    next(error);
+  }
+};

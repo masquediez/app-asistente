@@ -1,0 +1,69 @@
+/* Estilos específicos para la página de registro */
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Estilo para la tarjeta de registro */
+.register-card {
+  background: linear-gradient(
+    to right,
+    #0ba360,
+    #3cba92
+  ); /* Degradado de fondo */
+  border-radius: 20px;
+  padding: 40px;
+  width: 300px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Título de registro */
+.register-card h1 {
+  color: white;
+  margin-bottom: 20px;
+}
+
+/* Estilo general para las etiquetas */
+.register-card label {
+  display: block;
+  text-align: left;
+  color: white;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+/* Estilo para los inputs */
+.register-card input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 10px;
+  background-color: #e8e8e8; /* Fondo de los inputs */
+}
+
+/* Estilo del botón de registro */
+.register-card button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  background-color: #4dabf7;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.register-card button:hover {
+  background-color: #1e90ff; /* Efecto hover en el botón */
+}
+
+/* Estilo para el mensaje de error */
+.register-card p {
+  color: red;
+  font-size: 14px;
+}

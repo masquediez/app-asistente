@@ -1,0 +1,19 @@
+.centered-container {
+  text-align: justify;
+  background-color: rgb(139, 201, 147);
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: flex-start; /* Comienza desde arriba y permite scroll si es necesario */
+  padding: 10%;
+  padding-top: 2%;
+  box-sizing: border-box; /* Asegura que el padding se incluya dentro del ancho/alto */
+  min-height: 100vh; /* Al menos el 100% de la altura de la ventana, pero permite crecimiento */
+  width: 100%; /* Asegura que ocupe el 100% del ancho */
+}
+
+/* Media query para dispositivos móviles */
+@media (max-width: 768px) {
+  .centered-container {
+    padding: 5%; /* Ajusta la separación para dispositivos móviles */
+  }
+}

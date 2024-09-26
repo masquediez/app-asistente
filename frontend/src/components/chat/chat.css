@@ -1,0 +1,12 @@
+/*:root {
+  --chat--color-primary: #ff5833;
+  --chat--color-secondary: #a6c9ac;
+  --chat--color-dark: #333333;
+  --chat--color-light: #f0f0f0;
+  --chat--message--bot--background: #f0f0f0;
+  --chat--message--bot--color: #333333;
+  --chat--message--user--color: #ffffff;
+  --chat--window--width: 100%;  Asegúrate de que el chat ocupe todo el ancho del contenedor 
+  --chat--window--height: 100%;  Asegúrate de que el chat ocupe todo el alto del contenedor 
+}
+*/

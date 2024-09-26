@@ -1,0 +1,89 @@
+
+.chat-page {
+  width: 90%;
+  height: 80%;
+  flex-direction: column;
+}
+
+.chat-inputs textarea {
+  width: 80%;
+  flex-direction: column;
+  justify-content: center;
+  height: 50px; /* Ajusta la altura */
+  border: 2px solid #007bff; /* Cambia el color del borde */
+  border-radius: 10px; /* Bordes redondeados */
+  padding: 10px; /* Espacio interno para el texto */
+  font-size: 16px; /* Tamaño del texto */
+  color: #333; /* Color del texto */
+  background-color: #f8f9fa; /* Color de fondo */
+  outline: none; /* Quita el borde azul al hacer clic */
+  resize: none; /* Evita que el usuario cambie el tamaño del textarea */
+}
+
+.chat-inputs {
+  width: 99%;
+  background-color: rgb(136, 199, 199);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+/* Puedes agregar un cambio de color cuando el textarea esté en foco */
+.chat-inputs textarea:focus {
+  flex-direction: column;
+  border-color: #28a745; /* Color del borde cuando el textarea está en foco */
+  background-color: #e9f5ec; /* Color de fondo cuando está en foco */
+}
+
+.chat-container {
+  flex-direction: column;
+  justify-content: center;
+  width: 90%;
+  height: 90%;
+  background-color: #28a745;
+  border-style: dashed;
+}
+
+.chat-window-wrapper {
+  display: flex;
+  flex-direction: column;
+  border-style: dotted;
+  width: 90%;
+  background-color: #e2e2e2;
+  overflow-x: auto;
+  max-height: 80%;
+  margin: 0 auto;
+}
+
+.chat-layout {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  background-color: #e2e2e2;
+  width: 90%;
+  max-height: 80%;
+  margin: 0 auto;
+}
+
+.chat-footer {
+  flex-direction: column;
+  justify-content: center;
+}
+
+.chat-header {
+  font-size: 0%;
+}
+
+.chat-powered-by {
+  display: none;
+}
+
+.chat-message-from-user {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 5%;
+  border-style: groove;
+  border-radius: 10px;
+  background-color: rgb(136, 199, 199);
+}
+

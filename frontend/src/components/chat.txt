@@ -1,0 +1,76 @@
+import React, { useEffect } from "react";
+import "@n8n/chat/style.css"; // Importar los estilos predeterminados
+import "./chat.css"; // Importar los estilos personalizados
+import { createChat } from "@n8n/chat";
+
+const Chat = ({ username }) => {
+  useEffect(() => {
+    if (username) {
+      createChat({
+        webhookUrl:
+          "https://n8nencasa.duckdns.org/webhook/823f0740-9fcf-4377-b70d-05745c310421/chat",
+        container: "#chat-container",
+        initialMessages: [`¡Hallo! ${username}`],
+        i18n: {
+          en: {
+            title: "¡Prüfungsassistent!  ",
+            subtitle: "Ich bin hier, um Ihnen bei Ihrer Prüfung zu helfen !! ",
+            getStarted: "Nueva conversación",
+            inputPlaceholder: "Schreiben Sie Ihre Frage ..",
+          },
+        },
+      });
+    }
+  }, [username]);
+
+  return <div id="chat-container"></div>;
+};
+
+export default Chat;
+
+======================================================================================
+
+import React, { useEffect, useState } from "react";
+import "@n8n/chat/style.css"; // Importar los estilos predeterminados
+import "./chat.css"; // Importar los estilos personalizados
+import { createChat } from "@n8n/chat";
+
+const Chat = ({ username }) => {
+  const [sessionId, setSessionId] = useState(null);
+
+  useEffect(() => {
+    // Generar o recuperar session_id
+    let storedSessionId = localStorage.getItem("session_id");
+    if (!storedSessionId) {
+      storedSessionId = Date.now().toString(); // Crear un session_id único si no existe
+      localStorage.setItem("session_id", storedSessionId);
+    }
+    setSessionId(storedSessionId); // Guardar el sessionId en el estado
+
+    if (storedSessionId && username) {
+      createChat({
+        webhookUrl:
+          "https://n8nencasa.duckdns.org/webhook/823f0740-9fcf-4377-b70d-05745c310421/chat",
+        container: "#chat-container",
+        metadata: { session_id: storedSessionId }, // Enviar session_id para recordar sesiones anteriores
+        initialMessages: [`¡Hallo! ${username}`], // Mensaje inicial con el nombre del usuario
+        i18n: {
+          en: {
+            title: "¡Prüfungsassistent!",
+            subtitle: "Ich bin hier, um Ihnen bei Ihrer Prüfung zu helfen!!",
+            getStarted: "Nueva conversación",
+            inputPlaceholder: "Schreiben Sie Ihre Frage ..",
+          },
+        },
+      });
+    }
+  }, [username, sessionId]); // Ejecutar cuando username o sessionId cambian
+
+  return <div id="chat-container"></div>;
+};
+
+export default Chat;
+
+
+==============================================================================================================
+

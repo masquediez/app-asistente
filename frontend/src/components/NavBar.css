@@ -1,0 +1,120 @@
+/* Basic Navbar Styles */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #333;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 10px;
+  z-index: 1000; /* Ensure it is above other content */
+}
+
+/* Add this to push content below the navbar */
+body {
+  margin: 0;
+  padding-top: 60px; /* Adjust this value based on your navbar height */
+}
+
+/* Nav links styles */
+.nav-links {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li {
+  margin-left: 20px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  padding: 2px;
+  margin-top: 5px;
+  border-radius: 5px; /* Updated to 5px */
+  border: 1px solid transparent;
+  font-size: 25px;
+}
+
+.nav-links a:hover {
+  background-color: #555555;
+  border: 1px solid rgb(255, 255, 255);
+}
+
+/* Menu Toggle Styles */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  position: fixed; /* Make sure it floats above other content */
+  right: 20px; /* Position it to the right */
+  top: 50%; /* Center vertically */
+  transform: translateY(-50%); /* Adjust to center it perfectly */
+  background-color: #333; /* Background color for the button */
+  padding: 10px; /* Padding around the button */
+  border-radius: 50%; /* Circular button */
+  z-index: 1100; /* Ensure it is above other content */
+}
+
+.bar {
+  width: 25px;
+  height: 3px;
+  background-color: white;
+  margin: 3px 0;
+  transition: 0.3s;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .nav-links {
+    position: fixed; /* Fixed positioning to cover full screen */
+    top: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0); /* Transparent background */
+    width: 60%; /* Adjust width as needed */
+    height: 100vh; /* Full height */
+    overflow: hidden;
+    transition: transform 0.3s ease; /* Smooth transition */
+    transform: translateX(100%); /* Initially hidden */
+    flex-direction: column;
+    align-items: center;
+    padding-top: 50%; /* Space for the navbar */
+  }
+
+  .nav-links.active {
+    transform: translateX(0); /* Slide in from the right */
+  }
+
+  .nav-links li {
+    margin: 5px 0; /* Space between buttons */
+    padding: 10px;
+  }
+
+  .nav-links a {
+    padding: 10px 20px; /* Adjust padding for better click area */
+    border-radius: 5px; /* Border radius of 5px */
+    background-color: rgb(95, 94, 173); /* Transparent background */
+    border: 1px solid white; /* Border color */
+    color: white; /* Text color */
+  }
+
+  .menu-toggle {
+    display: flex; /* Show menu toggle button on mobile */
+    top: 75%;
+  }
+}
+
+/* Logout Button */
+.logout-button {
+  background-color: orange;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}

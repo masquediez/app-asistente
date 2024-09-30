@@ -14,7 +14,7 @@ services:
     networks:
       - monitoring
     deploy:
-      replicas: 1  # Puedes ajustar el número de réplicas según sea necesario
+      replicas: 1
 
   n8n:
     image: n8nio/n8n
@@ -35,7 +35,7 @@ services:
     networks:
       - monitoring
     deploy:
-      replicas: 1  # Puedes ajustar el número de réplicas según sea necesario
+      replicas: 1
 
   pgadmin:
     image: dpage/pgadmin4
@@ -51,7 +51,7 @@ services:
     networks:
       - monitoring
     deploy:
-      replicas: 1  # Puedes ajustar el número de réplicas según sea necesario
+      replicas: 1
 
   prometheus:
     image: prom/prometheus
@@ -62,7 +62,7 @@ services:
     networks:
       - monitoring
     deploy:
-      replicas: 1  # Puedes ajustar el número de réplicas según sea necesario
+      replicas: 1
 
   grafana:
     image: grafana/grafana
@@ -75,7 +75,7 @@ services:
     networks:
       - monitoring
     deploy:
-      replicas: 1  # Puedes ajustar el número de réplicas según sea necesario
+      replicas: 1
 
   node-exporter:
     image: prom/node-exporter
@@ -84,7 +84,7 @@ services:
     networks:
       - monitoring
     deploy:
-      replicas: 1  # Puedes ajustar el número de réplicas según sea necesario
+      replicas: 1
 
   postgres-exporter:
     image: wrouesnel/postgres_exporter
@@ -97,11 +97,11 @@ services:
     networks:
       - monitoring
     deploy:
-      replicas: 1  # Puedes ajustar el número de réplicas según sea necesario
+      replicas: 1
 
 networks:
   monitoring:
-    driver: overlay  # Asegúrate de que la red usa el driver overlay
+    external: true  # Indica que esta red es externa y debe existir en el Swarm
 
 volumes:
   postgres_data:

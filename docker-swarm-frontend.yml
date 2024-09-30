@@ -2,9 +2,7 @@ version: "3.7"
 
 services:
   backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
+    image: masquediez/asistente_backend:latest
     ports:
       - "5050:5050"
     environment:
@@ -15,9 +13,7 @@ services:
       replicas: 3  
 
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
+    image: masquediez/asistente_frontend:latest
     ports:
       - "3000:3000"
     networks:
@@ -41,4 +37,4 @@ services:
 
 networks:
   monitoring:
-    external: true  
+    external: true

@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   backend:
-    image: masquediez/asistente_backend:latest
+    image: masquediez/asistente_backend:v1
     ports:
       - "5050:5050"
     environment:
@@ -13,7 +13,7 @@ services:
       replicas: 3  
 
   frontend:
-    image: masquediez/asistente_frontend:latest
+    image: masquediez/asistente_frontend:v1
     ports:
       - "3000:3000"
     networks:

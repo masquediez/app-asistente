@@ -12,7 +12,7 @@ services:
     networks:
       - monitoring
     deploy:
-      replicas: 1  # Puedes ajustar el número de réplicas según sea necesario
+      replicas: 3  
 
   frontend:
     build:
@@ -23,7 +23,7 @@ services:
     networks:
       - monitoring
     deploy:
-      replicas: 1  # Puedes ajustar el número de réplicas según sea necesario
+      replicas: 3
 
   nginx:
     image: nginx:latest
@@ -37,8 +37,8 @@ services:
     networks:
       - monitoring
     deploy:
-      replicas: 1  # Puedes ajustar el número de réplicas según sea necesario
+      replicas: 3
 
 networks:
   monitoring:
-    driver: overlay  # Cambiado a 'overlay' para Swarm
+    external: true  

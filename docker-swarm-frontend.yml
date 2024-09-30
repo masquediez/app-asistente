@@ -1,0 +1,44 @@
+version: "3.7"
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "5050:5050"
+    environment:
+      - NODE_ENV=production
+    networks:
+      - monitoring
+    deploy:
+      replicas: 1  # Puedes ajustar el número de réplicas según sea necesario
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    networks:
+      - monitoring
+    deploy:
+      replicas: 1  # Puedes ajustar el número de réplicas según sea necesario
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - monitoring
+    deploy:
+      replicas: 1  # Puedes ajustar el número de réplicas según sea necesario
+
+networks:
+  monitoring:
+    driver: overlay  # Cambiado a 'overlay' para Swarm

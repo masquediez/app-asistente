@@ -2,37 +2,26 @@ version: "3.7"
 
 services:
   backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
+    image: masquediez/asistente_backend:v1
     ports:
       - "5050:5050"
     environment:
       - NODE_ENV=production
-    networks:
-      - monitoring
+    restart: always
 
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
+    image: masquediez/asistente_frontend:v1
     ports:
       - "3000:3000"
-    networks:
-      - monitoring
+    restart: always
 
   nginx:
     image: nginx:latest
     ports:
       - "80:80"
     volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro # Asegúrate de que nginx.conf sea un archivo
     depends_on:
       - frontend
       - backend
-    networks:
-      - monitoring
-
-networks:
-  monitoring:
-    driver: bridge
+    restart: always

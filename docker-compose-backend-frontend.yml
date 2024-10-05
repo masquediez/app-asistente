@@ -16,7 +16,7 @@ services:
     restart: always
 
   nginx:
-    image: nginx:latest
+    image: masquediez/asistente_frontend:v1
     ports:
       - "80:80"
     volumes:

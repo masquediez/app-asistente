@@ -1,0 +1,59 @@
+version: "3"
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: myusern8n
+      POSTGRES_PASSWORD: mypasswordn8n
+      POSTGRES_DB: mydbn8n
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - my-network
+
+  backend:
+    build: ./backend # Ruta a tu Dockerfile del backend
+    ports:
+      - "5050:5050"
+    networks:
+      - my-network
+
+  frontend:
+    build: ./frontend # Ruta a tu Dockerfile del frontend
+    ports:
+      - "80:80"
+    networks:
+      - my-network
+
+  n8n:
+    image: n8nio/n8n
+    container_name: n8n
+    restart: unless-stopped
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=admin
+      - N8N_BASIC_AUTH_PASSWORD=secretpassword
+      - N8N_HOST=https://n8nencasa.duckdns.org
+      - N8N_PORT=5678
+      - WEBHOOK_URL=https://n8nencasa.duckdns.org
+      - GENERIC_TIMEZONE=Europe/Berlin
+    depends_on:
+      - postgres
+    volumes:
+      - n8n_data:/home/n8n/.n8n
+    networks:
+      - my-network
+
+networks:
+  my-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  n8n_data:

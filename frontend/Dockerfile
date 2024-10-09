@@ -1,26 +1,30 @@
-# Utilizar la imagen oficial de Node como base
-FROM node:16-alpine
+# Usa una imagen de Node para construir la aplicación
+FROM node:14 AS build
 
-# Establecer el directorio de trabajo dentro del contenedor
+# Crea un directorio de trabajo
 WORKDIR /app
 
-# Copiar los archivos package.json y package-lock.json al contenedor
+# Copia el package.json y el package-lock.json (si existe)
 COPY package*.json ./
 
-# Instalar las dependencias
+# Instala las dependencias
 RUN npm install
 
-# Copiar el resto de la aplicación al contenedor
+# Copia el resto del código fuente
 COPY . .
 
-# Compilar la aplicación de React
+# Construye la aplicación para producción
 RUN npm run build
 
-# Instalar un servidor estático para servir el frontend
-RUN npm install -g serve
+# Usa una imagen de Nginx para servir la aplicación
+FROM nginx:alpine
 
-# Exponer el puerto en el que correrá la aplicación
-EXPOSE 3000
+# Copia los archivos de la carpeta build al directorio de Nginx
+COPY --from=build /app/build /usr/share/nginx/html
 
-# Comando para ejecutar el servidor estático en producción
-CMD ["serve", "-s", "build", "-l", "3000"]
+# Expon el puerto 80
+EXPOSE 80
+
+# Comando por defecto
+CMD ["nginx", "-g", "daemon off;"]
+

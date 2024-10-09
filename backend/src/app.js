@@ -10,10 +10,24 @@ const app = express();
 const PORT = process.env.PORT || 5050;
 
 // Configurar CORS
+const allowedOrigins = [
+  "http://localhost:3000",
+  "http://localhost",
+  "http://localhost:80",
+  "https://cloud-ki-assistent.duckdns.org",
+];
+
 app.use(
   cors({
-    origin: "http://localhost:3000", // Permitir solicitudes desde este origen
-    credentials: true, // Habilitar el envío de cookies
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true); // Permitir solicitudes sin origen
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      } else {
+        return callback(new Error("No permitido por CORS"));
+      }
+    },
+    credentials: true,
   })
 );
 

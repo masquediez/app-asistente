@@ -14,6 +14,12 @@ const allowedOrigins = [
   "http://localhost:3000",
   "http://localhost",
   "http://localhost:80",
+  "35.159.67.182",
+  "35.159.67.182:80",
+  "35.159.67.182:3000",
+  "http://35.159.67.182",
+  "http://35.159.67.182:80",
+  "http://35.159.67.182:3000",
   "https://cloud-ki-assistent.duckdns.org",
 ];
 

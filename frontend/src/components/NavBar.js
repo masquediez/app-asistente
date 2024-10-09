@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./NavBar.css";
 
-const NavBar = ({ isAuthenticated, logout }) => {
+const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -38,38 +38,27 @@ const NavBar = ({ isAuthenticated, logout }) => {
             How to Start
           </Link>
         </li>
-        {isAuthenticated ? (
-          <>
-            <li>
-              <Link to="/profile" onClick={handleLinkClick}>
-                Profile
-              </Link>
-            </li>
-            <li>
-              <Link to="/quiz" onClick={handleLinkClick}>
-                Quiz
-              </Link>
-            </li>
-            <li>
-              <button onClick={logout} className="logout-button">
-                Logout
-              </button>
-            </li>
-          </>
-        ) : (
-          <>
-            <li>
-              <Link to="/login" onClick={handleLinkClick}>
-                Login
-              </Link>
-            </li>
-            <li>
-              <Link to="/register" onClick={handleLinkClick}>
-                Register
-              </Link>
-            </li>
-          </>
-        )}
+
+        <li>
+          <Link to="/quiz" onClick={handleLinkClick}>
+            Quiz
+          </Link>
+        </li>
+        <li>
+          <Link to="/chat/aws" onClick={handleLinkClick}>
+            AWS Chat
+          </Link>
+        </li>
+        <li>
+          <Link to="/chat/azure" onClick={handleLinkClick}>
+            Azure Chat
+          </Link>
+        </li>
+        <li>
+          <Link to="/chat/linux" onClick={handleLinkClick}>
+            Linux Chat
+          </Link>
+        </li>
       </ul>
     </nav>
   );
